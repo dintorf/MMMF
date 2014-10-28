@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-public class CustomGrid extends BaseAdapter{
+public class CustomGridHome extends BaseAdapter{
     private Context mContext;
     private final int[] Imageid;
-    public CustomGrid(Context c,int[] Imageid ) {
+    public CustomGridHome(Context c, int[] Imageid) {
         mContext = c;
         this.Imageid = Imageid;
     }
@@ -40,7 +40,7 @@ public class CustomGrid extends BaseAdapter{
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             grid = new View(mContext);
-            grid = inflater.inflate(R.layout.grid_single, null);
+            grid = inflater.inflate(R.layout.home_grid_single, null);
             ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
             imageView.setImageResource(Imageid[position]);
         } else {

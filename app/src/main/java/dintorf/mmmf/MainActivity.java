@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
         Parse.initialize(this, "T2Pi3dg49Na7727OvCMjl8aETNiBLSjY20W3eKqJ", "ODvALDTEkqKdBtElcuihd1oE8v48ygK0jJHRbC7d");
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
-        CustomGrid adapter = new CustomGrid(MainActivity.this, imageId);
+        CustomGridHome adapter = new CustomGridHome(MainActivity.this, imageId);
         grid = (GridView)findViewById(R.id.homeGrid);
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
