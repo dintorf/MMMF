@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MMMF</string>
+    <string name="action_settings">Settings</string>
+    <string name="main">Main Stage</string>
+    <string name="local">Local Stage</string>
+
+</resources>
