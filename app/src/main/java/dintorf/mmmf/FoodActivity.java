@@ -151,8 +151,8 @@ public class FoodActivity extends Activity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
-                            Intent i = new Intent(FoodActivity.this, MainActivity.class);
-                            i.putExtra("vendor_website",vendorList.get(position).get(TAG_URL));
+                            Intent i = new Intent(FoodActivity.this, WebActivity.class);
+                            i.putExtra("url",vendorList.get(position).get(TAG_URL));
                             startActivity(i);
                         }
                     });

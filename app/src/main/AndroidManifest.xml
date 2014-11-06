@@ -44,6 +44,16 @@
                 android:value="dintorf.mmmf.MainActivity" />>
         </activity>
         <activity
+            android:name=".WebActivity"
+            android:layout_gravity="center"
+            android:label="@string/app_name"
+            android:parentActivityName="dintorf.mmmf.MainActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dintorf.mmmf.MainActivity" />>
+        </activity>
+        <activity
             android:name=".FoodActivity"
             android:layout_gravity="center"
             android:label="@string/app_name"
