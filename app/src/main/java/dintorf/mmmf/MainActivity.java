@@ -1,7 +1,10 @@
 package dintorf.mmmf;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +18,7 @@ import com.parse.ParseInstallation;
 
 public class MainActivity extends Activity {
     GridView grid;
+    Utils utils;
     String[] activities = {
             "mainstage",
             "localstage",
@@ -37,6 +41,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        utils = new Utils(this);
 
         Parse.initialize(this, "T2Pi3dg49Na7727OvCMjl8aETNiBLSjY20W3eKqJ", "ODvALDTEkqKdBtElcuihd1oE8v48ygK0jJHRbC7d");
         ParseInstallation.getCurrentInstallation().saveInBackground();
@@ -79,6 +85,12 @@ public class MainActivity extends Activity {
             }
         });
 
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -29,6 +30,7 @@ public class LineupActivity extends Activity {
     ListView lineupListView;
     ListViewAdapter adapter;
     SeparatedListAdapter sladapter;
+    Utils utils;
 
     String stage;
 
@@ -53,6 +55,8 @@ public class LineupActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lineup_view);
+
+        utils = new Utils(this);
 
         Intent i = getIntent();
         stage = i.getExtras().getString("stage");
@@ -111,61 +115,63 @@ public class LineupActivity extends Activity {
          * getting All products from url
          * */
         protected String doInBackground(String... args) {
-            ParseQuery<ParseObject> query  = ParseQuery.getQuery("Lineup");
-            query.whereEqualTo("stage", stage);
-            query.orderByAscending("play_time");
+            if(utils.isNetworkAvailable()){
+                ParseQuery<ParseObject> query  = ParseQuery.getQuery("Lineup");
+                query.whereEqualTo("stage", stage);
+                query.orderByAscending("play_time");
 
-            try {
-                List<ParseObject> parseObjects = query.find();
+                try {
+                    List<ParseObject> parseObjects = query.find();
 
-                Log.d("THE OBJECT", "" +parseObjects.size());
+                    Log.d("THE OBJECT", "" +parseObjects.size());
 
-                for(ParseObject item : parseObjects){
-                    Log.d("THE QUERY ", "" + item.getString("artist_name"));
+                    for(ParseObject item : parseObjects){
+                        Log.d("THE QUERY ", "" + item.getString("artist_name"));
 
-                    String artist_name = item.getString(TAG_NAME);
-                    String artist_bio = item.getString(TAG_BIO_SHORT);
-                    String stage_name = item.getString(TAG_STAGE);
+                        String artist_name = item.getString(TAG_NAME);
+                        String artist_bio = item.getString(TAG_BIO_SHORT);
+                        String stage_name = item.getString(TAG_STAGE);
 //                            String img_str = item.getString(TAG_IMAGE);
-                    Date perform_date = item.getDate(TAG_PERFORMDATE);
-                    ParseFile image = (ParseFile) item.get("artist_img");
+                        Date perform_date = item.getDate(TAG_PERFORMDATE);
+                        ParseFile image = (ParseFile) item.get("artist_img");
 
-                    String time = new SimpleDateFormat("hh:mm aaa").format(perform_date);
-                    String longDate = new SimpleDateFormat("EEE MMMM d, yyyy hh:mm aaa").format(perform_date);
+                        String time = new SimpleDateFormat("hh:mm aaa").format(perform_date);
+                        String longDate = new SimpleDateFormat("EEE MMMM d, yyyy hh:mm aaa").format(perform_date);
 
 
-                    // creating new HashMap
-                    HashMap<String, String> map = new HashMap<String, String>();
+                        // creating new HashMap
+                        HashMap<String, String> map = new HashMap<String, String>();
 
-                    // adding each child node to HashMap key => value
-                    map.put(TAG_NAME, artist_name);
-                    map.put(TAG_BIO_SHORT, artist_bio);
-                    map.put(TAG_STAGE, stage_name);
+                        // adding each child node to HashMap key => value
+                        map.put(TAG_NAME, artist_name);
+                        map.put(TAG_BIO_SHORT, artist_bio);
+                        map.put(TAG_STAGE, stage_name);
 //                            map.put(TAG_IMAGE, img_str);
-                    map.put(TAG_PERFORMTIME, time);
-                    map.put(TAG_PERFORMDATE, longDate);
-                    map.put(TAG_IMAGE, image.getUrl());
+                        map.put(TAG_PERFORMTIME, time);
+                        map.put(TAG_PERFORMDATE, longDate);
+                        map.put(TAG_IMAGE, image.getUrl());
 
-                    // adding HashList to ArrayList
-                    String day = dateArr[perform_date.getDay()];
-                    if(day.equals("Friday")){
-                        lineupListFriday.add(map);
-                    }
-                    else if(day.equals("Saturday")) {
-                        lineupListSaturday.add(map);
-                    }
-                    else if(day.equals("Sunday")) {
-                        lineupListSunday.add(map);
+                        // adding HashList to ArrayList
+                        String day = dateArr[perform_date.getDay()];
+                        if(day.equals("Friday")){
+                            lineupListFriday.add(map);
+                        }
+                        else if(day.equals("Saturday")) {
+                            lineupListSaturday.add(map);
+                        }
+                        else if(day.equals("Sunday")) {
+                            lineupListSunday.add(map);
+                        }
                     }
                 }
-            }
-            catch(ParseException e) {
-                Log.e("ERROR:", "" + e.getMessage());
-            }
-            catch(Exception e2) {
-                Log.e("ERROR:", e2.getMessage());
-            }
+                catch(ParseException e) {
+                    Log.e("ERROR:", "" + e.getMessage());
+                }
+                catch(Exception e2) {
+                    Log.e("ERROR:", e2.getMessage());
+                }
 
+            }
 
             return null;
         }
@@ -176,27 +182,32 @@ public class LineupActivity extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
-            // updating UI from Background Thread
-            LineupActivity.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    /**
-                     * Updating parsed JSON data into ListView
-                     * */
+            if(!utils.isNetworkAvailable()){
+                Toast.makeText(getApplicationContext(), "Please connect to a network and retry!", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            } else {
+                // updating UI from Background Thread
+                LineupActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        /**
+                         * Updating parsed JSON data into ListView
+                         * */
 
-                    // Create main stage list
-                    sladapter = new SeparatedListAdapter(LineupActivity.this);
-                    adapter = new ListViewAdapter(LineupActivity.this, lineupListFriday);
-                    sladapter.addSection("Friday March 27th", adapter);
+                        // Create main stage list
+                        sladapter = new SeparatedListAdapter(LineupActivity.this);
+                        adapter = new ListViewAdapter(LineupActivity.this, lineupListFriday);
+                        sladapter.addSection("Friday March 27th", adapter);
 
-                    adapter = new ListViewAdapter(LineupActivity.this, lineupListSaturday);
-                    sladapter.addSection("Saturday March 28th", adapter);
+                        adapter = new ListViewAdapter(LineupActivity.this, lineupListSaturday);
+                        sladapter.addSection("Saturday March 28th", adapter);
 
-                    adapter = new ListViewAdapter(LineupActivity.this, lineupListSunday);
-                    sladapter.addSection("Sunday March 29th", adapter);
+                        adapter = new ListViewAdapter(LineupActivity.this, lineupListSunday);
+                        sladapter.addSection("Sunday March 29th", adapter);
 
-                    lineupListView.setAdapter(sladapter);
-                }
-            });
+                        lineupListView.setAdapter(sladapter);
+                    }
+                });
+            }
 
         }
 
