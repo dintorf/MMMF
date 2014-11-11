@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by dintorf on 10/17/14.
@@ -126,7 +127,7 @@ public class LineupActivity extends Activity {
                     Log.d("THE OBJECT", "" +parseObjects.size());
 
                     for(ParseObject item : parseObjects){
-                        Log.d("THE QUERY ", "" + item.getString("artist_name"));
+                        Log.d("THE QUERY ", "" + item.getDate(TAG_PERFORMDATE).toString());
 
                         String artist_name = item.getString(TAG_NAME);
                         String artist_bio = item.getString(TAG_BIO_SHORT);
@@ -135,8 +136,13 @@ public class LineupActivity extends Activity {
                         Date perform_date = item.getDate(TAG_PERFORMDATE);
                         ParseFile image = (ParseFile) item.get("artist_img");
 
-                        String time = new SimpleDateFormat("hh:mm aaa").format(perform_date);
-                        String longDate = new SimpleDateFormat("EEE MMMM d, yyyy hh:mm aaa").format(perform_date);
+                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aaa");
+                        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+                        String time = sdf.format(perform_date);
+
+                        sdf = new SimpleDateFormat("EEE MMMM d, yyyy hh:mm aaa");
+                        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+                        String longDate = sdf.format(perform_date);
 
 
                         // creating new HashMap
