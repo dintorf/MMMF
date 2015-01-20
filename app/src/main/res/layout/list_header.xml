@@ -8,4 +8,8 @@
     android:paddingTop="2dip"
     android:paddingBottom="2dip"
     android:paddingLeft="5dip"
-    style="?android:attr/listSeparatorTextViewStyle" />
+    style="?android:attr/listSeparatorTextViewStyle"
+    android:textColor="@color/ltpurple"
+    android:text="Text"
+    android:textStyle="bold"
+    android:textSize="15dp" />

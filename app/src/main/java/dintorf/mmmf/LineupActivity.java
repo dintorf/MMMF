@@ -136,7 +136,7 @@ public class LineupActivity extends Activity {
                         Date perform_date = item.getDate(TAG_PERFORMDATE);
                         ParseFile image = (ParseFile) item.get("artist_img");
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aaa");
+                        SimpleDateFormat sdf = new SimpleDateFormat("h:mm aaa");
                         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
                         String time = sdf.format(perform_date);
 
@@ -155,7 +155,7 @@ public class LineupActivity extends Activity {
 //                            map.put(TAG_IMAGE, img_str);
                         map.put(TAG_PERFORMTIME, time);
                         map.put(TAG_PERFORMDATE, longDate);
-                        map.put(TAG_IMAGE, image.getUrl());
+                        map.put(TAG_IMAGE, (image != null ? image.getUrl() : ""));
 
                         // adding HashList to ArrayList
                         String day = dateArr[perform_date.getDay()];

@@ -67,7 +67,7 @@ public class ListViewAdapter extends BaseAdapter {
         // Declare Variables
         TextView name;
         TextView bio;
-        TextView stage;
+//        TextView stage;
         TextView time;
         ImageView img;
 
@@ -81,7 +81,7 @@ public class ListViewAdapter extends BaseAdapter {
         // Locate the TextViews in listview_item.xml
         name = (TextView) itemView.findViewById(R.id.artname);
         bio = (TextView) itemView.findViewById(R.id.artbio);
-        stage = (TextView) itemView.findViewById(R.id.stagename);
+//        stage = (TextView) itemView.findViewById(R.id.stagename);
         time = (TextView) itemView.findViewById(R.id.perftime);
 
         // Locate the ImageView in listview_item.xml
@@ -89,7 +89,7 @@ public class ListViewAdapter extends BaseAdapter {
             // Capture position and set results to the TextViews
             name.setText(resultp.get(LineupActivity.TAG_NAME));
             bio.setText(resultp.get(LineupActivity.TAG_BIO_SHORT));
-            stage.setText(resultp.get(LineupActivity.TAG_STAGE));
+//            stage.setText(resultp.get(LineupActivity.TAG_STAGE));
             time.setText(resultp.get(LineupActivity.TAG_PERFORMTIME));
             // Capture position and set results to the ImageView
             Glide.with(context).load(resultp.get(LineupActivity.TAG_IMAGE)).into(img);
@@ -106,7 +106,7 @@ public class ListViewAdapter extends BaseAdapter {
                 // Pass all data bio
                 intent.putExtra("bio", resultp.get(LineupActivity.TAG_BIO_SHORT));
                 // Pass all data stage
-                intent.putExtra("stage",resultp.get(LineupActivity.TAG_STAGE));
+//                intent.putExtra("stage",resultp.get(LineupActivity.TAG_STAGE));
                 // Pass all data date
                 intent.putExtra("date",resultp.get(LineupActivity.TAG_PERFORMDATE));
                 // Pass all data img
