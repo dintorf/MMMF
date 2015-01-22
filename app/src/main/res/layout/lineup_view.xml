@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<dintorf.mmmf.PinnedSectionListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/mainLineupListView"
+    android:headerDividersEnabled="false"
+    android:footerDividersEnabled="false"
+    android:divider="@null"
+    android:background="@color/black" />
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    style="@android:style/Theme.Black">
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mainLineupListView"
-            android:layout_gravity="center_horizontal"
-            android:smoothScrollbar="false"
-            android:focusableInTouchMode="false" />
-
-    </LinearLayout>
-
-</RelativeLayout>

@@ -11,11 +11,16 @@ import android.widget.BaseAdapter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class SeparatedListAdapter extends BaseAdapter {
+public class SeparatedListAdapter extends BaseAdapter implements PinnedSectionListView.PinnedSectionListAdapter {
 
     public final Map<String,Adapter> sections = new LinkedHashMap<String,Adapter>();
     public final ArrayAdapter<String> headers;
     public final static int TYPE_SECTION_HEADER = 0;
+
+    @Override
+    public boolean isItemViewTypePinned(int viewType) {
+        return viewType == TYPE_SECTION_HEADER;
+    }
 
     public SeparatedListAdapter(Context context) {
         headers = new ArrayAdapter<String>(context, R.layout.list_header);
@@ -90,7 +95,9 @@ public class SeparatedListAdapter extends BaseAdapter {
             int size = adapter.getCount() + 1;
 
             // check if position inside this section
-            if(position == 0) return headers.getView(sectionnum, convertView, parent);
+            if(position == 0) {
+                return headers.getView(sectionnum, convertView, parent);
+            }
             if(position < size) return adapter.getView(position - 1, convertView, parent);
 
             // otherwise jump into next section

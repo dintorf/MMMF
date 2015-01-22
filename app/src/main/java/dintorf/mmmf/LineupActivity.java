@@ -69,7 +69,7 @@ public class LineupActivity extends Activity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         // initialize list views and lineup ArrayLists
-        lineupListView = (ListView) findViewById(R.id.mainLineupListView);
+        lineupListView = (PinnedSectionListView) findViewById(R.id.mainLineupListView);
 
         lineupListFriday = new ArrayList<HashMap<String, String>>();
         lineupListSaturday = new ArrayList<HashMap<String, String>>();

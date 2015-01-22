@@ -33,7 +33,7 @@ import java.util.List;
 public class LocalLineupFragment extends Fragment {
 
     ListView lineupListView;
-    ListViewAdapter adapter;
+//    ListViewAdapter adapter;
     SeparatedListAdapter sladapter;
 
     private LoadLineup load;
@@ -299,14 +299,14 @@ public class LocalLineupFragment extends Fragment {
 
                     // Create main stage list
                     sladapter = new SeparatedListAdapter(getActivity());
-                    adapter = new ListViewAdapter(getActivity(),lineupListFriday);
-                    sladapter.addSection("Friday March 27th",adapter);
+//                    adapter = new ListViewAdapter(getActivity(),lineupListFriday);
+//                    sladapter.addSection("Friday March 27th",adapter);
 
-                    adapter = new ListViewAdapter(getActivity(),lineupListSaturday);
-                    sladapter.addSection("Saturday March 28th",adapter);
+//                    adapter = new ListViewAdapter(getActivity(),lineupListSaturday);
+//                    sladapter.addSection("Saturday March 28th",adapter);
 
-                    adapter = new ListViewAdapter(getActivity(),lineupListSunday);
-                    sladapter.addSection("Sunday March 29th",adapter);
+//                    adapter = new ListViewAdapter(getActivity(),lineupListSunday);
+//                    sladapter.addSection("Sunday March 29th",adapter);
 
                     lineupListView.setAdapter(sladapter);
 

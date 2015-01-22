@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="ltblue" type="color">#33cccc</item>
-    <item name="ltpurple" type="color">#990066</item>
-    <item name="white" type="color">#FFFFFF</item>
+    <item name="ltblue" type="color">#ff33cccc</item>
+    <item name="ltpurple" type="color">#ff990066</item>
+    <item name="white" type="color">#ffffffff</item>
+    <item name="black" type="color">#ff000000</item>
+    <item name="ltgrey" type="color">#ffb9b9b9</item>
+    <item name="tranblack" type="color">#aa000000</item>
 
     <integer-array name="androidcolors">
         <item>@color/ltblue</item>
         <item>@color/ltpurple</item>
         <item>@color/white</item>
+        <item>@color/black</item>
+        <item>@color/ltgrey</item>
+        <item>@color/tranblack</item>
     </integer-array>
 </resources>
